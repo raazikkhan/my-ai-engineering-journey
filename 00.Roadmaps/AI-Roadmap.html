@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer Roadmap — 6 Months</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06070d;
+    --surface: #0d0f1a;
+    --surface2: #12152b;
+    --border: rgba(255,255,255,0.08);
+    --accent1: #00f5c4;
+    --accent2: #7c5cfc;
+    --accent3: #ff6b6b;
+    --accent4: #ffd93d;
+    --accent5: #4facfe;
+    --text: #e8eaf6;
+    --muted: #6b7194;
+    --glow1: rgba(0,245,196,0.15);
+    --glow2: rgba(124,92,252,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,245,196,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 80%, rgba(124,92,252,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(79,172,254,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 80px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,245,196,0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    -webkit-text-fill-color: var(--accent1);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent1) 70%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+  }
+
+  .header-sub {
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Progress bar */
+  .progress-track {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 32px 0 0;
+    flex-wrap: wrap;
+  }
+
+  .progress-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 1px solid var(--muted);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .progress-dot.active { background: var(--accent1); border-color: var(--accent1); box-shadow: 0 0 10px var(--accent1); }
+
+  /* Month sections */
+  .month-block {
+    margin-bottom: 60px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .month-block:nth-child(2) { animation-delay: 0.1s; }
+  .month-block:nth-child(3) { animation-delay: 0.2s; }
+  .month-block:nth-child(4) { animation-delay: 0.3s; }
+  .month-block:nth-child(5) { animation-delay: 0.4s; }
+  .month-block:nth-child(6) { animation-delay: 0.5s; }
+  .month-block:nth-child(7) { animation-delay: 0.6s; }
+
+  .month-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .month-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .month-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .month-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .month-tag {
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+  /* Week cards grid */
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .week-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+  }
+
+  .week-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--accent1));
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
+  }
+
+  .week-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-accent, var(--accent1));
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px var(--card-glow, var(--glow1));
+  }
+
+  .week-card:hover::before { opacity: 1; }
+
+  .week-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--card-accent, var(--accent1));
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .week-number::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .week-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .week-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .week-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    letter-spacing: 0.5px;
+  }
+
+  /* Special cards */
+  .week-card.highlight {
+    background: linear-gradient(135deg, var(--surface), var(--surface2));
+  }
+
+  /* Connector */
+  .month-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    margin: -10px 0 20px;
+  }
+
+  .connector-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--border), transparent);
+  }
+
+  /* New additions badge */
+  .new-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent4), var(--accent3));
+    color: #000;
+    font-size: 9px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* Milestone callout */
+  .milestone {
+    background: linear-gradient(135deg, rgba(0,245,196,0.08), rgba(124,92,252,0.08));
+    border: 1px solid rgba(0,245,196,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .milestone-icon { font-size: 28px; flex-shrink: 0; }
+
+  .milestone-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .milestone-text strong {
+    color: var(--accent1);
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .finish-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    padding: 16px 40px;
+    border-radius: 100px;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-note {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* Month color themes */
+  .m1 .week-card { --card-accent: #00f5c4; --card-glow: rgba(0,245,196,0.12); }
+  .m2 .week-card { --card-accent: #4facfe; --card-glow: rgba(79,172,254,0.12); }
+  .m3 .week-card { --card-accent: #7c5cfc; --card-glow: rgba(124,92,252,0.12); }
+  .m4 .week-card { --card-accent: #ff6b6b; --card-glow: rgba(255,107,107,0.12); }
+  .m5 .week-card { --card-accent: #ffd93d; --card-glow: rgba(255,217,61,0.12); }
+  .m6 .week-card { --card-accent: #a8edea; --card-glow: rgba(168,237,234,0.12); }
+
+  .m1 .month-title { color: #00f5c4; }
+  .m2 .month-title { color: #4facfe; }
+  .m3 .month-title { color: #7c5cfc; }
+  .m4 .month-title { color: #ff6b6b; }
+  .m5 .month-title { color: #ffd93d; }
+  .m6 .month-title { color: #a8edea; }
+
+  .m1 .month-tag { background: rgba(0,245,196,0.1); color: #00f5c4; border: 1px solid rgba(0,245,196,0.3); }
+  .m2 .month-tag { background: rgba(79,172,254,0.1); color: #4facfe; border: 1px solid rgba(79,172,254,0.3); }
+  .m3 .month-tag { background: rgba(124,92,252,0.1); color: #7c5cfc; border: 1px solid rgba(124,92,252,0.3); }
+  .m4 .month-tag { background: rgba(255,107,107,0.1); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+  .m5 .month-tag { background: rgba(255,217,61,0.1); color: #ffd93d; border: 1px solid rgba(255,217,61,0.3); }
+  .m6 .month-tag { background: rgba(168,237,234,0.1); color: #a8edea; border: 1px solid rgba(168,237,234,0.3); }
+
+  @media (max-width: 600px) {
+    .weeks-grid { grid-template-columns: 1fr; }
+    .month-header { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-badge">🚀 6-Month Program</div>
+    <h1>AI Engineer<br>Roadmap</h1>
+    <p class="header-sub">From zero to job-ready. A structured, week-by-week path to becoming a modern AI engineer.</p>
+    <div class="progress-track">
+      <div class="progress-dot active"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+  </div>
+
+  <!-- MONTH 1 -->
+  <div class="month-block m1">
+    <div class="month-header">
+      <span class="month-number">Month 01</span>
+      <h2 class="month-title">Foundations</h2>
+      <div class="month-line"></div>
+      <span class="month-tag">4 WEEKS</span>
+    </div>
+
+    <div class="milestone">
+      <span class="milestone-icon">🧱</span>
+      <div class="milestone-text"><strong>Goal:</strong> Build unshakeable fundamentals. No shortcuts — this is the bedrock everything else rests on. Focus on understanding, not just running code.</div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-card">
+        <div class="week-number">Week 01</div>
+        <div class="week-title">Python Mastery</div>
+        <div class="week-desc">Syntax, data types, OOP, decorators, generators, comprehensions, standard libraries (os, sys, pathlib, itertools).</div>
+        <div class="week-tags"><span class="tag">Python</span><span class="tag">OOP</span><span class="tag">Stdlib</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 02</div>
+        <div class="week-title">Math for AI</div>
+        <div class="week-desc">Linear algebra (matrices, eigenvalues, SVD), calculus (derivatives, gradients, chain rule), NumPy for numerical ops.</div>
+        <div class="week-tags"><span class="tag">NumPy</span><span class="tag">LinearAlgebra</span><span class="tag">Calculus</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 03</div>
+        <div class="week-title">Probability & Statistics</div>
+        <div class="week-desc">Probability distributions, Bayes' theorem, hypothesis testing, p-values, confidence intervals, information theory basics.</div>
+        <div class="week-tags"><span class="tag">Stats</span><span class="tag">Bayes</span><span class="tag">Probability</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 04</div>
+        <div class="week-title">Data Wrangling & EDA</div>
+        <div class="week-desc">Pandas, data cleaning, missing values, outliers, feature distributions, Matplotlib/Seaborn visualizations, storytelling with data.</div>
+        <div class="week-tags"><span class="tag">Pandas</span><span class="tag">EDA</span><span class="tag">Seaborn</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 2 -->
+  <div class="month-block m2">
+    <div class="month-header">
+      <span class="month-number">Month 02</span>
+      <h2 class="month-title">Core Machine Learning</h2>
+      <div class="month-line"></div>
+      <span class="month-tag">4 WEEKS</span>
+    </div>
+
+    <div class="milestone">
+      <span class="milestone-icon">🤖</span>
+      <div class="milestone-text"><strong>Goal:</strong> Master classic ML end-to-end — not just training models, but understanding <em>why</em> they work and when to use each one. Ship a real project.</div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-card">
+        <div class="week-number">Week 05</div>
+        <div class="week-title">Supervised Learning</div>
+        <div class="week-desc">Linear & logistic regression, decision trees, evaluation metrics (precision, recall, F1, ROC-AUC), bias-variance tradeoff.</div>
+        <div class="week-tags"><span class="tag">sklearn</span><span class="tag">Regression</span><span class="tag">Evaluation</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 06</div>
+        <div class="week-title">Advanced Algorithms</div>
+        <div class="week-desc">SVMs, Random Forests, XGBoost/LightGBM, Gradient Boosting. Hyperparameter tuning with Optuna. Kaggle competition strategies.</div>
+        <div class="week-tags"><span class="tag">XGBoost</span><span class="tag">Optuna</span><span class="tag">Kaggle</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 07</div>
+        <div class="week-title">Unsupervised Learning & NLP Basics</div>
+        <div class="week-desc">K-Means, DBSCAN, PCA, t-SNE. Intro to NLP: tokenization, TF-IDF, word embeddings (Word2Vec, GloVe), text preprocessing pipelines.</div>
+        <div class="week-tags"><span class="tag">Clustering</span><span class="tag">NLP</span><span class="tag">Embeddings</span></div>
+      </div>
+      <div class="week-card highlight">
+        <div class="week-number">Week 08 — Project Week 🛠</div>
+        <div class="week-title">End-to-End ML Pipeline</div>
+        <div class="week-desc">Build a complete project: data → EDA → feature engineering → model → evaluation → MLflow experiment tracking → deploy with FastAPI. Add to GitHub.</div>
+        <div class="week-tags"><span class="tag">MLflow</span><span class="tag">FastAPI</span><span class="tag">GitHub</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 3 -->
+  <div class="month-block m3">
+    <div class="month-header">
+      <span class="month-number">Month 03</span>
+      <h2 class="month-title">Deep Learning</h2>
+      <div class="month-line"></div>
+      <span class="month-tag">4 WEEKS</span>
+    </div>
+
+    <div class="milestone">
+      <span class="milestone-icon">🧠</span>
+      <div class="milestone-text"><strong>Goal:</strong> Understand neural networks from scratch — forward pass, backprop, gradient descent. Learn PyTorch deeply (not just copy-paste).</div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-card">
+        <div class="week-number">Week 09</div>
+        <div class="week-title">Neural Networks from Scratch</div>
+        <div class="week-desc">Perceptron, backpropagation, activation functions (ReLU, GELU, sigmoid, tanh), loss functions, gradient descent variants.</div>
+        <div class="week-tags"><span class="tag">Backprop</span><span class="tag">Activations</span><span class="tag">Gradients</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 10</div>
+        <div class="week-title">PyTorch Deep Dive</div>
+        <div class="week-desc">Tensors, autograd, custom datasets/dataloaders, training loops, optimizers (Adam, AdamW), LR schedulers, GPU/CUDA, mixed precision (AMP).</div>
+        <div class="week-tags"><span class="tag">PyTorch</span><span class="tag">CUDA</span><span class="tag">AMP</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 11</div>
+        <div class="week-title">CNNs & Computer Vision</div>
+        <div class="week-desc">Convolutions, pooling, BatchNorm, ResNet/EfficientNet architectures, data augmentation (Albumentations), image classification project.</div>
+        <div class="week-tags"><span class="tag">CNN</span><span class="tag">ResNet</span><span class="tag">Albumentations</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 12</div>
+        <div class="week-title">RNNs, LSTMs & Sequence Models</div>
+        <div class="week-desc">RNNs, LSTMs, GRUs, vanishing gradient problem. Text generation, time series forecasting. Intro to attention mechanism as motivation for Transformers.</div>
+        <div class="week-tags"><span class="tag">LSTM</span><span class="tag">Attention</span><span class="tag">Sequences</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 4 -->
+  <div class="month-block m4">
+    <div class="month-header">
+      <span class="month-number">Month 04</span>
+      <h2 class="month-title">Advanced Deep Learning & Deployment</h2>
+      <div class="month-line"></div>
+      <span class="month-tag">4 WEEKS</span>
+    </div>
+
+    <div class="milestone">
+      <span class="milestone-icon">⚡</span>
+      <div class="milestone-text"><strong>Goal:</strong> Move from notebooks to production. Learn the architectures that power modern AI and how to actually deploy them in the real world.</div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-card">
+        <div class="week-number">Week 13</div>
+        <div class="week-title">Transformers Architecture</div>
+        <div class="week-desc">Self-attention, multi-head attention, positional encodings, encoder-decoder architecture. Implement a mini-GPT from scratch. Read "Attention Is All You Need."</div>
+        <div class="week-tags"><span class="tag">Attention</span><span class="tag">Transformers</span><span class="tag">GPT</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 14</div>
+        <div class="week-title">Transfer Learning & Fine-Tuning</div>
+        <div class="week-desc">HuggingFace ecosystem, BERT/GPT fine-tuning, LoRA/QLoRA for parameter-efficient training, domain adaptation, few-shot learning.</div>
+        <div class="week-tags"><span class="tag">HuggingFace</span><span class="tag">LoRA</span><span class="tag">PEFT</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 15</div>
+        <div class="week-title">Object Detection & Segmentation</div>
+        <div class="week-desc">YOLO (v8/v11), Faster R-CNN, SAM (Segment Anything Model), semantic & instance segmentation, IoU/mAP metrics.</div>
+        <div class="week-tags"><span class="tag">YOLO</span><span class="tag">SAM</span><span class="tag">Detection</span></div>
+      </div>
+      <div class="week-card highlight">
+        <div class="week-number">Week 16 — Project Week 🛠</div>
+        <div class="week-title">Deploy a DL Model to Production</div>
+        <div class="week-desc">Docker + FastAPI → cloud deploy (Hugging Face Spaces, Railway, or GCP). CI/CD pipeline, model versioning, latency optimization with ONNX/TorchScript.</div>
+        <div class="week-tags"><span class="tag">Docker</span><span class="tag">ONNX</span><span class="tag">CI/CD</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 5 -->
+  <div class="month-block m5">
+    <div class="month-header">
+      <span class="month-number">Month 05</span>
+      <h2 class="month-title">Generative AI & LLM Engineering <span class="new-badge">NEW</span></h2>
+      <div class="month-line"></div>
+      <span class="month-tag">4 WEEKS</span>
+    </div>
+
+    <div class="milestone">
+      <span class="milestone-icon">✨</span>
+      <div class="milestone-text"><strong>Goal:</strong> Master the skills that are most in-demand right now — LLM APIs, RAG systems, agents, and AI product development. This is where you become hireable.</div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-card">
+        <div class="week-number">Week 17</div>
+        <div class="week-title">LLM APIs & Prompt Engineering</div>
+        <div class="week-desc">OpenAI / Anthropic / Gemini APIs, prompt engineering (chain-of-thought, few-shot, system prompts), structured outputs, JSON mode, function calling.</div>
+        <div class="week-tags"><span class="tag">OpenAI</span><span class="tag">Anthropic</span><span class="tag">Prompting</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 18</div>
+        <div class="week-title">Embeddings & Vector Databases</div>
+        <div class="week-desc">Semantic search, embedding models (OpenAI, Cohere, BGE), vector stores (Pinecone, Chroma, Weaviate, pgvector), similarity search at scale.</div>
+        <div class="week-tags"><span class="tag">Pinecone</span><span class="tag">ChromaDB</span><span class="tag">Embeddings</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 19</div>
+        <div class="week-title">RAG Systems</div>
+        <div class="week-desc">Build production RAG pipelines with LangChain/LlamaIndex. Chunking strategies, hybrid search, reranking (Cohere), evaluation with RAGAS, agentic RAG.</div>
+        <div class="week-tags"><span class="tag">LangChain</span><span class="tag">LlamaIndex</span><span class="tag">RAGAS</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 20</div>
+        <div class="week-title">AI Agents & Orchestration</div>
+        <div class="week-desc">ReAct agents, tool use, multi-agent systems (CrewAI, AutoGen), memory architectures, LangGraph for stateful workflows, MCP protocol.</div>
+        <div class="week-tags"><span class="tag">Agents</span><span class="tag">LangGraph</span><span class="tag">CrewAI</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 6 -->
+  <div class="month-block m6">
+    <div class="month-header">
+      <span class="month-number">Month 06</span>
+      <h2 class="month-title">Portfolio, MLOps & Job Prep <span class="new-badge">NEW</span></h2>
+      <div class="month-line"></div>
+      <span class="month-tag">4 WEEKS</span>
+    </div>
+
+    <div class="milestone">
+      <span class="milestone-icon">🎯</span>
+      <div class="milestone-text"><strong>Goal:</strong> Ship 3 standout portfolio projects, master MLOps fundamentals, and execute a smart job search. You're not just job-ready — you're standout-ready.</div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-card highlight">
+        <div class="week-number">Week 21 — Project Week 🛠</div>
+        <div class="week-title">Capstone Project #1: AI Product</div>
+        <div class="week-desc">Build a full-stack AI product: LLM + RAG + agent backend + React/Next.js frontend. Deploy publicly. Write a technical blog post about it. Share on LinkedIn.</div>
+        <div class="week-tags"><span class="tag">Full-Stack</span><span class="tag">Next.js</span><span class="tag">Blog</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 22</div>
+        <div class="week-title">MLOps & Model Monitoring</div>
+        <div class="week-desc">Weights & Biases, DVC for data versioning, model registries, A/B testing models, data drift detection (Evidently), basic Kubernetes/cloud infra.</div>
+        <div class="week-tags"><span class="tag">W&B</span><span class="tag">DVC</span><span class="tag">Evidently</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 23</div>
+        <div class="week-title">Interview Prep</div>
+        <div class="week-desc">ML system design (ML design primer), coding (LeetCode ML-specific), behavioral STAR stories, mock interviews, salary negotiation, offer evaluation.</div>
+        <div class="week-tags"><span class="tag">System Design</span><span class="tag">LeetCode</span><span class="tag">Behavioral</span></div>
+      </div>
+      <div class="week-card">
+        <div class="week-number">Week 24</div>
+        <div class="week-title">Network, Apply & Launch</div>
+        <div class="week-desc">Optimized LinkedIn + GitHub, cold outreach templates, AI community (Papers With Code, Hugging Face Discord, X/Twitter), open source contribution, job applications.</div>
+        <div class="week-tags"><span class="tag">LinkedIn</span><span class="tag">Open Source</span><span class="tag">Networking</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="finish-badge">🏁 You've Shipped. You're Hired.</div>
+    <p class="footer-note">Estimated time: 15–20 hrs/week · Build in public · Document everything · Consistency beats intensity</p>
+  </div>
+
+</div>
+
+<script>
+  // Animate progress dots on scroll
+  const dots = document.querySelectorAll('.progress-dot');
+  const cards = document.querySelectorAll('.week-card');
+  const total = dots.length;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const progress = scrolled / docHeight;
+    const activeDots = Math.round(progress * total);
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i < activeDots || i === 0);
+    });
+  });
+
+  // Card hover sound effect (visual pulse)
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.setProperty('--pulse', '1');
+    });
+  });
+</script>
+
+</body>
+</html>
